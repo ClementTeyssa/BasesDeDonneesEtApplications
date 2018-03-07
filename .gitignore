@@ -2,3 +2,6 @@
 .xml
 ~*
 conf.ini
+.buildpath
+.project
+.settings
