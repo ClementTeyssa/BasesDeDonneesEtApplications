@@ -9,7 +9,10 @@
 namespace bdd\models;
 
 
-class Friends
+class Friends extends \Illuminate\Database\Eloquent\Model
 {
+    protected $table = 'friends';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 
 }

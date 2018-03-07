@@ -9,7 +9,10 @@
 namespace bdd\models;
 
 
-class Theme
+class Theme extends \Illuminate\Database\Eloquent\Model
 {
 
+    protected $table = 'theme';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 }

@@ -9,7 +9,10 @@
 namespace bdd\models;
 
 
-class Game2Rating
+class Game2Rating extends \Illuminate\Database\Eloquent\Model
 {
 
+    protected $table = 'game2rating';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 }

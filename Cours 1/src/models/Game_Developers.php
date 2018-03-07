@@ -9,7 +9,10 @@
 namespace bdd\models;
 
 
-class Game_Developers
+class Game_Developers extends \Illuminate\Database\Eloquent\Model
 {
 
+    protected $table = 'game_developers';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 }

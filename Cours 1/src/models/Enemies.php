@@ -9,7 +9,10 @@
 namespace bdd\models;
 
 
-class Enemies
+class Enemies extends \Illuminate\Database\Eloquent\Model
 {
+    protected $table = 'enemies';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 
 }

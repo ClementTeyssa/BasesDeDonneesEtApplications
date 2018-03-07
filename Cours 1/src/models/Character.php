@@ -9,7 +9,12 @@
 namespace bdd\models;
 
 
-class Character
+class Character extends \Illuminate\Database\Eloquent\Model
 {
+
+    protected $table = 'character';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
+
 
 }

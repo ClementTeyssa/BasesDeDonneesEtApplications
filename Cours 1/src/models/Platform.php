@@ -9,7 +9,10 @@
 namespace bdd\models;
 
 
-class Platform
+class Platform extends \Illuminate\Database\Eloquent\Model
 {
 
+    protected $table = 'plateform';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 }

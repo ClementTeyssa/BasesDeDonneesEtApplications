@@ -9,7 +9,10 @@
 namespace bdd\models;
 
 
-class Similar_Games
+class Similar_Games extends \Illuminate\Database\Eloquent\Model
 {
 
+    protected $table = 'similar_games';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 }
