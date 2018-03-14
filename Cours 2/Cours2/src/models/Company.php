@@ -23,4 +23,11 @@ class Company extends \Illuminate\Database\Eloquent\Model
     			'comp_id',
     			'game_id');
     }
+    
+    public function publishers(){
+    	return $this->belongsToMany('bdd\models\Game',
+    			'game_publishers',
+    			'game_id',
+    			'comp_id');
+    }
 }
