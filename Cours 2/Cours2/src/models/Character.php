@@ -8,8 +8,6 @@
 
 namespace bdd\models;
 
-use bdd\models\Game;
-
 class Character extends \Illuminate\Database\Eloquent\Model
 {
 
@@ -19,12 +17,12 @@ class Character extends \Illuminate\Database\Eloquent\Model
 
     public function firstAppared(){
     	return
-    		$this->belongsTo('game','first_appared_in_game_id');
+    		$this->belongsTo('bdd\models\Game','first_appared_in_game_id');
     }
 
     public function games(){
     	return
-    	$this->belongsToMany('Game',
+    	$this->belongsToMany('bdd\models\Game',
     			'game2character',
     			'game_id',
     			'character_id');
@@ -32,7 +30,7 @@ class Character extends \Illuminate\Database\Eloquent\Model
     
     public function friends(){
     	return
-    	$this->belongsToMany('Character',
+    	$this->belongsToMany('bdd\models\Character',
     			'friends',
     			'char1_id',
     			'char2_id');
@@ -40,7 +38,7 @@ class Character extends \Illuminate\Database\Eloquent\Model
     
     public function enemies(){
     	return
-    	$this->belongsToMany('Character',
+    	$this->belongsToMany('bdd\models\Character',
     			'enemies',
     			'char1_id',
     			'char2_id');

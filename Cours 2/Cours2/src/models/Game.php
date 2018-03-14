@@ -23,56 +23,56 @@ class Game extends \Illuminate\Database\Eloquent\Model
 
 
     public function game_ratings(){
-    	$this->belongsToMany('Game_Rating', 
+        return $this->belongsToMany('bdd\models\Game_Rating',
     		'game2rating', 
     		'game_id', 
     		'rating_id');
     }
 
     public function themes(){
-    	$this->belongsToMany('Theme', 
+        return $this->belongsToMany('bdd\models\Theme',
     		'theme2rating', 
     		'game_id', 
     		'theme_id');
     }
 
     public function characters(){
-    	$this->belongsToMany('Character',
+    	return $this->belongsToMany('bdd\models\Character',
     		'game2character',
     		'game_id',
     		'character_id');
     }
 
     public function platforms(){
-    	$this->belongsToMany('platform',
+        return $this->belongsToMany('bdd\models\Platform',
     		'game2platform',
     		'game_id',
     		'platform_id');
     }
 
     public function genres(){
-    	$this->belongsToMany('genre',
+        return $this->belongsToMany('bdd\models\Genre',
     		'game2genre',
     		'game_id',
     		'genre_id');
     }
 
     public function developers(){
-    	$this->belongsToMany('company',
+        return $this->belongsToMany('bdd\models\Company',
     		'game_developers',
     		'game_id',
     		'comp_id');
     }
 
     public function publishers(){
-		$this->belongsToMany('company',
+        return $this->belongsToMany('bdd\models\Company',
     		'game_publishers',
     		'game_id',
     		'comp_id');
     }
 
 	public function similar(){
-		$this->belongsToMany('game',
+        return $this->belongsToMany('bdd\models\Game',
 			'similar_games',
 			'game1_id',
 			'game2_id');

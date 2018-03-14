@@ -14,11 +14,13 @@ $characters = $req1->characters;
 foreach($characters as $char) {
     print($char->name . " " . $char->deck . "\n");
 }
-
+print "==================================================================================\n";
 $res2 = \bdd\models\Game::where('name', 'like', '%Mario%')->get();
 foreach($res2 as $re){
     $pers = $re->characters;
+    print "---------".$re->name."---------\n";
     foreach ($pers as $per){
-        print $per."\n";
+        print $per->id." ".$per->name."\n";
     }
 }
+print "==================================================================================\n";

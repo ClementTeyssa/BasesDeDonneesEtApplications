@@ -4,11 +4,22 @@ Compléter les modèles Eloquent pour représenter les associations nécessaire 
 # Requètes
 - afficher (name , deck) les personnages du jeu 12342
 ```
-
+$req1 = \bdd\models\Game::where("id","=","12342")->first();
+$characters = $req1->characters;
+foreach($characters as $char) {
+    print($char->name . " " . $char->deck . "\n");
+}
 ```
 - les personnages des jeux dont le nom (du jeu) débute par 'Mario'
 ```
-
+$res2 = \bdd\models\Game::where('name', 'like', '%Mario%')->get();
+foreach($res2 as $re){
+    $pers = $re->characters;
+    print "---------".$re->name."---------\n";
+    foreach ($pers as $per){
+        print $per->id." ".$per->name."\n";
+    }
+}
 ```
 - les jeux développés par une compagnie dont le nom contient 'Sony'
 ```
