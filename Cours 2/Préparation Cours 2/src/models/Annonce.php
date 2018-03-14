@@ -21,7 +21,7 @@ class Annonce extends \Illuminate\Database\Eloquent\Model
     public function categories() {
         return
             $this->belongsToMany('Categorie',
-                'type',
+                'Type',
                 'idAnnonce',
                 'idCateg');
     }
