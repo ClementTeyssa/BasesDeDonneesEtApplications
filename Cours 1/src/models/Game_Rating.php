@@ -22,4 +22,5 @@ class Game_Rating extends \Illuminate\Database\Eloquent\Model
     		'rating_id', 
     		'game_id');
     }
+    
 }
