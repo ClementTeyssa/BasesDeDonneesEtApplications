@@ -17,7 +17,7 @@ class Game extends \Illuminate\Database\Eloquent\Model
     public $timestamps = false;
 
 
-    public function ratings(){
+    public function game_ratings(){
     	$this->belongsToMany('Game_Rating', 
     		'game2rating', 
     		'game_id', 
