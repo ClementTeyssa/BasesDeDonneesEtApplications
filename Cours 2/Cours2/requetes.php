@@ -46,6 +46,7 @@ foreach($req5 as $res){
 }
 print "==================================================================================\n";
 
+
 print "==================================================================================\n";
 $nouvGenre = new \bdd\models\Genre();
 $nouvGenre->name = 'MEUPORG';
@@ -62,4 +63,10 @@ $jeu->genres()->associate($genre);
 $jeu = \bdd\models\Game::find(345);
 $jeu->genres()->associate($genre);
 
+print "==================================================================================\n";
+
+print "==================================================================================\n";
+$req7 = \bdd\models\Game::where("name","like","%Mario")->whereHas('publishers', function ($q){
+$q->where('name', 'like', '%Inc%'))->whereHas('game_raitings', function ($q){
+$q->where('name', 'like', '%3+'))->get()
 print "==================================================================================\n";
