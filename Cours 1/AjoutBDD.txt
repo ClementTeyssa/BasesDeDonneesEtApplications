@@ -1,3 +1,0 @@
-dans un terminal, dans le répertoire des fichiers sql
-mysql -u UTILISATEUR -p BASEDEDONNEES < games_schema.sql
-mysql -u UTILISATEUR -p BASEDEDONNEES < games_data.sql
