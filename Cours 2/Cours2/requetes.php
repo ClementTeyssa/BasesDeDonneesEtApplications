@@ -51,3 +51,18 @@ foreach($req5 as $res){
 }
 */
 print "==================================================================================\n";
+
+
+
+
+
+
+
+
+
+
+
+
+$req7 = \bdd\models\Game::where("name","like","%Mario")->whereHas('publishers', function ($q){
+$q->where('name', 'like', '%Inc%'))->whereHas('game_raitings', function ($q){
+$q->where('name', 'like', '%3+'))->get()
