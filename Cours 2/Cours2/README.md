@@ -23,7 +23,14 @@ foreach($res2 as $re){
 ```
 - les jeux développés par une compagnie dont le nom contient 'Sony'
 ```
-
+$req3 = \bdd\models\Company::where("name","like","%Sony%")->get();
+foreach ($req3 as $re){
+    $games = $re->developers;
+    print "---------".$re->name."---------\n";
+    foreach ($games as $game){
+        print $game->name."\n";
+    }
+}
 ```
 - le rating initial (indiquer le rating board) des jeux dont le nom contient Mario
 ```
@@ -31,7 +38,13 @@ foreach($res2 as $re){
 ```
 - les jeux dont le nom débute par Mario et ayant plus de 3 personnages
 ```
-
+$req5 = \bdd\models\Game::where("name","like","Mario%")->get();
+foreach($req5 as $res){
+    $characters = $res->characters;
+    if(sizeOf($characters)>=3){
+        print($res->name."\n");
+    }
+}
 ```
 - les jeux dont le nom débute par Mario et dont le rating initial contient "3+"
 ```
