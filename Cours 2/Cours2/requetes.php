@@ -59,10 +59,14 @@ print "=========================================================================
 
 
 
-
-
-
-
-$req7 = \bdd\models\Game::where("name","like","%Mario")->whereHas('publishers', function ($q){
-$q->where('name', 'like', '%Inc%'))->whereHas('game_raitings', function ($q){
-$q->where('name', 'like', '%3+'))->get()
+$req7 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("publishers", function ($q){
+        $q->where("name", "like", "%Inc%")->get();
+    })
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%")->get();
+    })
+    ->get();
+foreach ( $req7 as $re){
+    print $re->id." ".$re->name."\n";
+}
