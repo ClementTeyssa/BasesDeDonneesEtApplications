@@ -8,7 +8,7 @@
 
 require_once "vendor/autoload.php";
 \bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
-/*
+
 $req1 = \bdd\models\Game::where("id","=","12342")->first();
 $characters = $req1->characters;
 foreach($characters as $char) {
@@ -34,7 +34,7 @@ foreach ($req3 as $re){
 }
 
 print "==================================================================================\n";
-*/
+
 
 print "==================================================================================\n";
 $req5 = \bdd\models\Game::where("name","like","Mario%")->get();
@@ -45,7 +45,8 @@ foreach($req5 as $res){
     }
 }
 print "==================================================================================\n";
-
+$req6 = \bdd\models\Game::where("name","like","Mario%")->whereHas('game_ratings', function($q){
+$q->where('name','like', '%3+')})->get();
 
 
 
