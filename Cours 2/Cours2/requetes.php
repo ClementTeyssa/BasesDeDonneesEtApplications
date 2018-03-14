@@ -9,3 +9,10 @@
 require_once "vendor/autoload.php";
 \bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
 
+$res2 = \bdd\models\Game::where('name', 'like', '%Mario%')->get();
+foreach($res2 as $re){
+    $pers = $re->characters;
+    foreach ($pers as $per){
+        print $per."\n";
+    }
+}
