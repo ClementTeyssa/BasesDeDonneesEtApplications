@@ -53,12 +53,23 @@ foreach($req5 as $res){
 print "==================================================================================\n";
 
 
+print "==================================================================================\n";
+$nouvGenre = new \bdd\models\Genre();
+$nouvGenre->name = 'MEUPORG';
+$nouvGenre->deck = 'MMORPG mais en nul';
+$nouvGenre->save();
 
+$genre = \bdd\models\Genre::find($nouvGenre->id);
+$jeu = \bdd\models\Game::find(12);
+$jeu->genres()->associate($genre);
 
+$jeu = \bdd\models\Game::find(56);
+$jeu->genres()->associate($genre);
 
+$jeu = \bdd\models\Game::find(345);
+$jeu->genres()->associate($genre);
 
-
-
+print "==================================================================================\n";
 $req7 = \bdd\models\Game::where("name", "like", "Mario%")
     ->whereHas("publishers", function ($q){
         $q->where("name", "like", "%Inc%")->get();
