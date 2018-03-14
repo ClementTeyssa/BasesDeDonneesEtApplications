@@ -32,7 +32,6 @@ foreach ($req3 as $re){
         print $game->name."\n";
     }
 }
-
 print "==================================================================================\n";
 $res4 = \bdd\models\Game::where('name', 'like', "%Mario%")->get();
 foreach ($res4 as $re) {
