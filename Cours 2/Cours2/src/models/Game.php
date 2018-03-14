@@ -15,4 +15,12 @@ class Game extends \Illuminate\Database\Eloquent\Model
     protected $table = 'game';
     protected $primaryKey = 'id';
     public $timestamps = false;
+
+
+    public function game_ratings(){
+    	$this->belongsToMany('Game_Rating', 
+    		'game2rating', 
+    		'game_id', 
+    		'rating_id');
+    }
 }
