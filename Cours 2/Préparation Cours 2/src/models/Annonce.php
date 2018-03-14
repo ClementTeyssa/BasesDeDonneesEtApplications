@@ -18,8 +18,12 @@ class Annonce extends \Illuminate\Database\Eloquent\Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function categories(){
-        return $this->hasMany('Categorie', 'id');
+    public function categories() {
+        return
+            $this->belongsToMany('tikenet\CategoriePlace',
+                'Categorie',
+                'ann_id',
+                'cat_id');
     }
 
     public function photos(){

@@ -10,14 +10,18 @@ namespace bdd\models;
 use bdd\models\Annonce as Annonce;
 
 
-class Catégorie extends \Illuminate\Database\Eloquent\Model
+class Categorie extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'character';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function annonces(){
-        return $this->hasMany('Annonce', 'id');
+    public function annonces() {
+        return
+            $this->belongsToMany('tikenet\CategoriePlace',
+                'Annonce',
+                'cat_id',
+                'ann_id');
     }
 }
