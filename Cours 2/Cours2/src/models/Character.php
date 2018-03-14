@@ -8,6 +8,7 @@
 
 namespace bdd\models;
 
+use bdd\models\Game;
 
 class Character extends \Illuminate\Database\Eloquent\Model
 {
@@ -23,7 +24,7 @@ class Character extends \Illuminate\Database\Eloquent\Model
 
     public function games(){
     	return
-    	$this->belongsToMany('bdd\models\Game',
+    	$this->belongsToMany('Game',
     			'game2character',
     			'game_id',
     			'character_id');
@@ -31,7 +32,7 @@ class Character extends \Illuminate\Database\Eloquent\Model
     
     public function friends(){
     	return
-    	$this->belongsToMany('bdd\models\Character',
+    	$this->belongsToMany('Character',
     			'friends',
     			'char1_id',
     			'char2_id');
@@ -39,7 +40,7 @@ class Character extends \Illuminate\Database\Eloquent\Model
     
     public function enemies(){
     	return
-    	$this->belongsToMany('bdd\models\Character',
+    	$this->belongsToMany('Character',
     			'enemies',
     			'char1_id',
     			'char2_id');

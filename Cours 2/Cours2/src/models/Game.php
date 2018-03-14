@@ -9,7 +9,7 @@
 namespace bdd\models;
 use bdd\models\Theme;
 use bdd\models\Game_Rating;
-use bdd\models\character;
+use bdd\models\Character;
 use bdd\models\Platform;
 
 class Game extends \Illuminate\Database\Eloquent\Model
@@ -35,7 +35,7 @@ class Game extends \Illuminate\Database\Eloquent\Model
     }
 
     public function characters(){
-    	$this->belongsToMany('character',
+    	$this->belongsToMany('Character',
     		'game2character',
     		'game_id',
     		'character_id');
