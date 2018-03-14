@@ -15,19 +15,19 @@ class Annonce extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'character';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'idAnnonce';
     public $timestamps = false;
 
     public function categories() {
         return
-            $this->belongsToMany('tikenet\CategoriePlace',
-                'Categorie',
-                'ann_id',
-                'cat_id');
+            $this->belongsToMany('Categorie',
+                'type',
+                'idAnnonce',
+                'idCateg');
     }
 
     public function photos(){
-        return $this->hasMany('Photo', 'id');
+        return $this->hasMany('Photo', 'idAnnonce');
     }
 
 

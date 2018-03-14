@@ -14,14 +14,14 @@ class Categorie extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'character';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'idCateg';
     public $timestamps = false;
 
     public function annonces() {
         return
-            $this->belongsToMany('tikenet\CategoriePlace',
-                'Annonce',
-                'cat_id',
-                'ann_id');
+            $this->belongsToMany('Annonce',
+                'type',
+                'idCateg',
+                'idAnnonce');
     }
 }

@@ -14,10 +14,10 @@ class Photo extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'character';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'idPhoto';
     public $timestamps = false;
 
     public function annonce(){
-        return $this->belongsTo('Annonce', 'id');
+        return $this->belongsTo('Annonce', 'idAnnonce');
     }
 }
