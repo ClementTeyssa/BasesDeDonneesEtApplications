@@ -12,7 +12,7 @@ foreach($characters as $char) {
 ```
 - les personnages des jeux dont le nom (du jeu) débute par 'Mario'
 ```
-$res2 = \bdd\models\Game::where('name', 'like', '%Mario%')->get();
+$res2 = \bdd\models\Game::where('name', 'like', 'Mario%')->get();
 foreach($res2 as $re){
     $pers = $re->characters;
     print "---------".$re->name."---------\n";
@@ -34,7 +34,14 @@ foreach ($req3 as $re){
 ```
 - le rating initial (indiquer le rating board) des jeux dont le nom contient Mario
 ```
-
+$res4 = \bdd\models\Game::where('name', 'like', "%Mario%")->get();
+foreach ($res4 as $re) {
+    print "---------" . $re->name . "---------\n";
+    $ratings = $re->game_ratings;
+    foreach ($ratings as $rating) {
+        print $rating->id . " " . $rating->name . "\n";
+    }
+}
 ```
 - les jeux dont le nom débute par Mario et ayant plus de 3 personnages
 ```
