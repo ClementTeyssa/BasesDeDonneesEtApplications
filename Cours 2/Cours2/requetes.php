@@ -8,7 +8,7 @@
 
 require_once "vendor/autoload.php";
 \bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
-/*
+
 $req1 = \bdd\models\Game::where("id","=","12342")->first();
 $characters = $req1->characters;
 foreach($characters as $char) {
@@ -49,35 +49,49 @@ foreach($req5 as $res){
         print($res->name."\n");
     }
 }
-*/
 print "==================================================================================\n";
-
-
-print "==================================================================================\n";
-$nouvGenre = new \bdd\models\Genre();
-$nouvGenre->name = 'MEUPORG';
-$nouvGenre->deck = 'MMORPG mais en nul';
-$nouvGenre->save();
-
-$genre = \bdd\models\Genre::find($nouvGenre->id);
-$jeu = \bdd\models\Game::find(12);
-$jeu->genres()->associate($genre);
-
-$jeu = \bdd\models\Game::find(56);
-$jeu->genres()->associate($genre);
-
-$jeu = \bdd\models\Game::find(345);
-$jeu->genres()->associate($genre);
-
+$req6 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+foreach ( $req6 as $re){
+    print $re->id." ".$re->name."\n";
+}
 print "==================================================================================\n";
 $req7 = \bdd\models\Game::where("name", "like", "Mario%")
     ->whereHas("publishers", function ($q){
-        $q->where("name", "like", "%Inc%")->get();
+        $q->where("name", "like", "%Inc%");
     })
     ->whereHas("game_ratings", function ($q){
-        $q->where("name", "like", "%3+%")->get();
+        $q->where("name", "like", "%3+%");
     })
     ->get();
 foreach ( $req7 as $re){
     print $re->id." ".$re->name."\n";
 }
+print "==================================================================================\n";
+$req8 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("publishers", function ($q){
+        $q->where("name", "like", "%Inc%");
+    })
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+        $q->where("name", "like", "%CERO%");
+    })
+    ->get();
+foreach ( $req8 as $re){
+    print $re->id." ".$re->name."\n";
+}
+print "==================================================================================\n";
+$nouvGenre = new \bdd\models\Genre();
+$nouvGenre->name = 'MEUPORG';
+$nouvGenre->deck = 'MMORPG mais en nul';
+$nouvGenre->save();
+$genre = \bdd\models\Genre::find($nouvGenre->id);
+$jeu = \bdd\models\Game::find(12);
+$jeu->genres()->save($genre);
+$jeu = \bdd\models\Game::find(56);
+$jeu->genres()->save($genre);
+$jeu = \bdd\models\Game::find(345);
+$jeu->genres()->save($genre);

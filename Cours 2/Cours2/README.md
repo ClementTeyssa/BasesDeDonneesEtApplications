@@ -59,13 +59,47 @@ foreach($req5 as $res){
 ```
 - les jeux dont le nom débute par Mario, publiés par une compagnie dont le nom contient "Inc." et dont le rating initial contient "3+"
 ```
-
+$req7 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("publishers", function ($q){
+        $q->where("name", "like", "%Inc%");
+    })
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+foreach ( $req7 as $re){
+    print $re->id." ".$re->name."\n";
+}
 ```
 - les jeux dont le nom débute Mario, publiés par une compagnie dont le nom contient "Inc",dont le rating initial contient "3+" et ayant reçu un avis de la part du rating board nommé"CERO"
 ```
-
+$req8 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("publishers", function ($q){
+        $q->where("name", "like", "%Inc%");
+    })
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+        $q->where("name", "like", "%CERO%");
+    })
+    ->get();
+foreach ( $req8 as $re){
+    print $re->id." ".$re->name."\n";
+}
 ```
 - ajouter un nouveau genre de jeu, et l'associer aux jeux 12, 56, 12, 345
 ```
+$nouvGenre = new \bdd\models\Genre();
+$nouvGenre->name = 'MEUPORG';
+$nouvGenre->deck = 'MMORPG mais en nul';
+$nouvGenre->save();
 
+$genre = \bdd\models\Genre::find($nouvGenre->id);
+$jeu = \bdd\models\Game::find(12);
+$jeu->genres()->save($genre);
+
+$jeu = \bdd\models\Game::find(56);
+$jeu->genres()->save($genre);
+
+$jeu = \bdd\models\Game::find(345);
+$jeu->genres()->save($genre);
 ```
