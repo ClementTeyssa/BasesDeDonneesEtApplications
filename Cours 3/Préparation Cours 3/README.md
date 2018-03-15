@@ -29,5 +29,24 @@ https://laravel.com/docs/5.6/eloquent-relationships#eager-loading
 ```
 - Expliquez le problème des N+1 query
 ```
+C'est un problème qui intervient en modèle relationnel, imaginons une table "Livre" et une table "Auteur" dans laquelle 
+chaque livre associe un auteur. 
 
+Si l'on veut afficher tous les livres et leur auteur associé, il faudra d'abord une requête pour récupérer tous les livres
+puis pour chaque livre une requête pour trouver l'auteur associé, on aura donc N + 1 requêtes pour N livres 
+
+Ce problème peut être résolu grâce au eager loading : lorsque l'on recherche tous les livres, on spécifie avec la méthode "with"
+quelle relation on veut charger :
+
+$livres = App\Livre::with('auteur')->get();
+
+foreach ($books as $book) {
+    echo $book->author->name;
+}
+
+La dernière instruction peut donc etre résolue en 2 requêtes contrairement à N + 1 précedemment :
+
+select * from books
+
+select * from authors where id in (1, 2, 3, 4, 5, ...)
 ```
