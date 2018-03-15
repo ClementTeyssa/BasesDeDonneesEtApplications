@@ -15,4 +15,11 @@ class Platform extends \Illuminate\Database\Eloquent\Model
     protected $table = 'platform';
     protected $primaryKey = 'id';
     public $timestamps = false;
+
+    public function gamess(){
+        return $this->belongsToMany('bdd\models\Game',
+            'game2platform',
+            'platform_id',
+            'game_id');
+    }
 }

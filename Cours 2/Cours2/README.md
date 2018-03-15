@@ -1,6 +1,158 @@
 # Modèles
 Compléter les modèles Eloquent pour représenter les associations nécessaire à l'écriture des requêtes suivantes, puis écrire les requêtes suivantes avec eloquent :
+- Character
+```
+    public function firstAppared(){
+    	return
+    		$this->belongsTo('bdd\models\Game','first_appared_in_game_id');
+    }
 
+    public function games(){
+    	return
+    	$this->belongsToMany('bdd\models\Game',
+    			'game2character',
+    			'game_id',
+    			'character_id');
+    }
+    
+    public function friends(){
+    	return
+    	$this->belongsToMany('bdd\models\Character',
+    			'friends',
+    			'char1_id',
+    			'char2_id');
+    }
+    
+    public function enemies(){
+    	return
+    	$this->belongsToMany('bdd\models\Character',
+    			'enemies',
+    			'char1_id',
+    			'char2_id');
+    }
+```
+- Company
+```
+    public function developers(){
+    	return 
+    	$this->belongsToMany('bdd\models\Game',
+    			'game_developers',
+    			'comp_id',
+    			'game_id');
+    }
+    
+    public function publishers(){
+    	return $this->belongsToMany('bdd\models\Game',
+    			'game_publishers',
+    			'game_id',
+    			'comp_id');
+    }
+```
+- Game
+```
+         public function game_ratings(){
+            return $this->belongsToMany('bdd\models\Game_Rating',
+        		'game2rating', 
+        		'game_id', 
+        		'rating_id');
+        }
+    
+        public function themes(){
+            return $this->belongsToMany('bdd\models\Theme',
+        		'theme2rating', 
+        		'game_id', 
+        		'theme_id');
+        }
+    
+        public function characters(){
+        	return $this->belongsToMany('bdd\models\Character',
+        		'game2character',
+        		'game_id',
+        		'character_id');
+        }
+    
+        public function platforms(){
+            return $this->belongsToMany('bdd\models\Platform',
+        		'game2platform',
+        		'game_id',
+        		'platform_id');
+        }
+    
+        public function genres(){
+            return $this->belongsToMany('bdd\models\Genre',
+        		'game2genre',
+        		'game_id',
+        		'genre_id');
+        }
+    
+        public function developers(){
+            return $this->belongsToMany('bdd\models\Company',
+        		'game_developers',
+        		'game_id',
+        		'comp_id');
+        }
+    
+        public function publishers(){
+            return $this->belongsToMany('bdd\models\Company',
+        		'game_publishers',
+        		'game_id',
+        		'comp_id');
+        }
+    
+    	public function similar(){
+            return $this->belongsToMany('bdd\models\Game',
+    			'similar_games',
+    			'game1_id',
+    			'game2_id');
+    	}
+```
+- Game_Rating
+```
+    public function games(){
+            return $this->belongsToMany('bdd\models\Game',
+                'game2rating',
+                'rating_id',
+                'game_id');
+        }
+    
+        public function rating_board(){
+            return $this->belongsTo('Rating_Board', 'rating_board_id');
+        }
+```
+- Genre
+```
+    public function games(){
+        	return 
+        	$this->belongsToMany('game',
+        			'game2genre',
+        			'genre_id',
+        			'game_id');
+        }
+```
+- Platform
+```
+    public function gamess(){
+            return $this->belongsToMany('bdd\models\Game',
+                'game2platform',
+                'platform_id',
+                'game_id');
+        }
+```
+- Rating_Board
+```
+    public function game_ratings(){
+        return $this->hasMany('Game_Rating', 'rating_board_id');
+    }
+```
+- Theme
+```
+    public function games(){
+        return $this->belongsToMany('bdd\models\Game',
+            'theme2rating',
+            'theme_id',
+            'game_id');
+    }
+```
 # Requètes
 - afficher (name , deck) les personnages du jeu 12342
 ```
