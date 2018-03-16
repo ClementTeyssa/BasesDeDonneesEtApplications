@@ -9,7 +9,6 @@
 require_once "vendor/autoload.php";
 \bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
 
-//print "==================================================================================\n";
 $timestamp_debut = microtime(true);
 $res1 = \bdd\models\Game::get();
 foreach ($res1 as $re){
@@ -28,3 +27,14 @@ $timestamp_fin = microtime(true);
 $difference_ms = $timestamp_fin - $timestamp_debut;
 print "Exécution de l'instruction 2 en : " . $difference_ms . " secondes.\n";
 print "==================================================================================\n";
+$timestamp_debut = microtime(true);
+$res3 = \bdd\models\Game::where('name', 'like', 'Mario%')->get();
+foreach($res3 as $re){
+	$pers = $re->characters;
+	foreach ($pers as $per){
+	    $tmp = $re->name;
+    }
+}
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 3 en : ' . $difference_ms . ' secondes.\n";
