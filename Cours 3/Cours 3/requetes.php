@@ -193,8 +193,11 @@ DB::connection()->table('game', function ($table){
 });
 
 DB::connection()->enableQueryLog();
+    
+    function printEndQuery(){
+        $queries = DB::getQueryLog();
+        $last_query = end($queries);
+        print($last_query);
+    }
+    
 
-$queries = DB::getQueryLog();
-
-//Mettre apres chaque requete pour avoir son log (renvoi log derniere req)
-$last_query = end($queries);
