@@ -8,7 +8,14 @@ avec Eloquent. Mesurez uniquement le temps d'exécution, sans prendre en compte 
 Mesurer en particulier les requêtes :
 - lister l'ensemble des jeux,
 ```
-
+$timestamp_debut = microtime(true);
+$res1 = \bdd\models\Game::get();
+foreach ($res1 as $re){
+    $tmp = $re->name."\n";
+}
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction en : " . $difference_ms . " secondes.\n";
 ```
 - lister les jeux dont le nom contient 'Mario'
 ```
