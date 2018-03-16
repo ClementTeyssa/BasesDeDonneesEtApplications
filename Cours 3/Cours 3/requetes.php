@@ -10,6 +10,7 @@ require_once "vendor/autoload.php";
 use Illuminate\Database\Capsule\Manager as DB;
 \bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
 
+/*
 print "==================================================================================\n";
 $timestamp_debut = microtime(true);
 $res1 = \bdd\models\Game::get();
@@ -186,7 +187,7 @@ $moyAI = ($difference_ms1+$difference_ms2+$difference_ms3)/3;
 $difmoy = $moySI-$moyAI;
 print "Exécution en $moyAI en moyenne\n";
 $diff = ($difmoy*100)/$moyAI;
-print "Gain de $diff%\n";
+print "Gain de $diff%\n"; */
 
 DB::connection()->table('game', function ($table){
     $table->dropIndex('name');
@@ -199,5 +200,8 @@ DB::connection()->enableQueryLog();
         $last_query = end($queries);
         print($last_query);
     }
-    
+
+print "==================================================================================\n";
+$res2 = \bdd\models\Game::where("name", "like", "%Mario%");
+printEndQuery()
 
