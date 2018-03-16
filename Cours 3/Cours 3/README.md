@@ -8,15 +8,37 @@ avec Eloquent. Mesurez uniquement le temps d'exécution, sans prendre en compte 
 Mesurer en particulier les requêtes :
 - lister l'ensemble des jeux,
 ```
-
+$timestamp_debut = microtime(true);
+$res1 = \bdd\models\Game::get();
+foreach ($res1 as $re){
+    $tmp = $re->name."\n";
+}
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction en : " . $difference_ms . " secondes.\n";
 ```
 - lister les jeux dont le nom contient 'Mario'
 ```
-
+$res2 = \bdd\models\Game::where("name", "like", "%Mario%");
+foreach ($res1 as $re){
+    $tmp = $re->name."\n";
+}
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 2 en : " . $difference_ms . " secondes.\n";
 ```
 - afficher les personnages des jeux dont le nom débute par 'Mario'
 ```
-
+$res3 = \bdd\models\Game::where('name', 'like', 'Mario%')->get();
+foreach($res3 as $re){
+	$pers = $re->characters;
+	foreach ($pers as $per){
+	    $tmp = $re->name;
+    }
+}
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 3 en : ' . $difference_ms . ' secondes.\n";
 ```
 - les jeux dont le nom débute par 'Mario' et dont le rating initial contient '3+'
 ```

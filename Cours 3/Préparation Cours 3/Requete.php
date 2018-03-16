@@ -12,5 +12,5 @@ for($i = 0; $i < 100000000; $i++){
 }
 $timestamp_fin = microtime(true);
 $difference_ms = $timestamp_fin - $timestamp_debut;
-print "Exécution de l'instruction en : ' . $difference_ms . ' secondes.\n";
+print "Exécution de l'instruction en : " . $difference_ms . " secondes.\n";
 print "==================================================================================\n";
