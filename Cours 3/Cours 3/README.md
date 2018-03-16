@@ -55,6 +55,53 @@ print "Exécution de l'instruction 4 en : " . $difference_ms . " secondes.\n";
 
 Cache de requêtes mysql : comparer le temps d'exécution d'une requête coûteuse entre la 1ère
 exécution et les exécutions suivantes.
+```
+$timestamp_debut = microtime(true);
+$req5_1 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin-$timestamp_debut;
+print "Exécution de l'instruction 5.1 en : " . $difference_ms . " secondes.\n";
+$timestamp_debut = microtime(true);
+$req5_2 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin-$timestamp_debut;
+print "Exécution de l'instruction 5.2 en : " . $difference_ms . " secondes.\n";
+$timestamp_debut = microtime(true);
+$req5_3 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin-$timestamp_debut;
+print "Exécution de l'instruction 5.3 en : " . $difference_ms . " secondes.\n";
+$timestamp_debut = microtime(true);
+$req5_4 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin-$timestamp_debut;
+print "Exécution de l'instruction 5.4 en : " . $difference_ms . " secondes.\n";
+$timestamp_debut = microtime(true);
+$req5_5 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin-$timestamp_debut;
+print "Exécution de l'instruction 5.5 en : " . $difference_ms . " secondes.\n";
+```
 Index : On essaye d'améliorer les performances de certaines requêtes, en particulier celles
 contenant une condition "where". Pour vérifier l'amélioration de performance, on mesure le temps
 d'exécution des requêtes. Faites plusieurs requêtes similaires (même requêtes mais valeurs
@@ -63,20 +110,105 @@ différentes dans la condition where.
 Etudier la requête : "lister les jeux dont le nom débute par '<valeur>' "
 - mesurer son temps d'exécution avec 3 valeurs différentes
 ```
-
+$timestamp_debut = microtime(true);
+$res6_1 = \bdd\models\Game::where('name', 'like', 'Mario%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms1 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 6.1 en : " . $difference_ms1 . " secondes.\n";
+$timestamp_debut = microtime(true);
+$res6_2 = \bdd\models\Game::where('name', 'like', 'Desert%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms2 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 6.2 en : " . $difference_ms2 . " secondes.\n";
+$timestamp_debut = microtime(true);
+$res6_3 = \bdd\models\Game::where('name', 'like', 'The%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms3 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 6.3 en : " . $difference_ms3 . " secondes.\n";
+$moySI = ($difference_ms1+$difference_ms2+$difference_ms3)/3;
+print "Exécution en $moySI en moyenne";
 ```
 - créer un index sur la colonne 'name' de la table 'game'
 ```
-
+DB::connection()->table('game', function ($table){
+    $table->index('name');
+});
 ```
 - mesurer à nouveau le temps d'exécution avec 3 nouvelles valeurs
 ```
-
+$timestamp_debut = microtime(true);
+$res7_1 = \bdd\models\Game::where('name', 'like', 'Mario%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms1 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 6.1 en : " . $difference_ms1 . " secondes.\n";
+$timestamp_debut = microtime(true);
+$res7_2 = \bdd\models\Game::where('name', 'like', 'Desert%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms2 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 6.2 en : " . $difference_ms2 . " secondes.\n";
+$timestamp_debut = microtime(true);
+$res7_3 = \bdd\models\Game::where('name', 'like', 'The%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms3 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 6.3 en : " . $difference_ms3 . " secondes.\n";
+$moyAI = ($difference_ms1+$difference_ms2+$difference_ms3)/3;
+$difmoy = $moySI-$moyAI;
+$diff = ($difmoy*100)/$moyAI;
+print "Gain de $diff%";
 ```
 Etudier de la même manière la requête : lister les jeux dont le nom contient '<valeur>'. Pouvezvous
 expliquer le résultat ?
 ```
+$timestamp_debut = microtime(true);
+$res8_1 = \bdd\models\Game::where('name', 'like', '%Mario%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms1 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 8.1 en : " . $difference_ms1 . " secondes.\n";
+$timestamp_debut = microtime(true);
+$res8_2 = \bdd\models\Game::where('name', 'like', '%Desert%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms2 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 8.2 en : " . $difference_ms2 . " secondes.\n";
+$timestamp_debut = microtime(true);
+$res8_3 = \bdd\models\Game::where('name', 'like', '%The%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms3 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 8.3 en : " . $difference_ms3 . " secondes.\n";
+$moySI = ($difference_ms1+$difference_ms2+$difference_ms3)/3;
+print "Exécution en $moySI en moyenne\n";
 
+DB::connection()->table('game', function ($table){
+    $table->index('name');
+});
+
+$timestamp_debut = microtime(true);
+$res8_1 = \bdd\models\Game::where('name', 'like', 'Mario%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms1 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 8.1 en : " . $difference_ms1 . " secondes.\n";
+$timestamp_debut = microtime(true);
+$res8_2 = \bdd\models\Game::where('name', 'like', 'Desert%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms2 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 8.2 en : " . $difference_ms2 . " secondes.\n";
+$timestamp_debut = microtime(true);
+$res8_3 = \bdd\models\Game::where('name', 'like', 'The%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms3 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 8.3 en : " . $difference_ms3 . " secondes.\n";
+$moyAI = ($difference_ms1+$difference_ms2+$difference_ms3)/3;
+$difmoy = $moySI-$moyAI;
+print "Exécution en $moyAI en moyenne\n";
+$diff = ($difmoy*100)/$moyAI;
+print "Gain de $diff%\n";
+
+DB::connection()->table('game', function ($table){
+    $table->dropIndex('name');
+});
+
+
+
+Il est normal qu'il n'y ai pas de différence car on n'utilise pas l'indexage
 ```
 Etudiez sur le même principe la requête "Liste des compagnies d'un pays(location_country)" :
 évaluez le gain de performance amené par un index. Que pensez-vous du résultat ?
