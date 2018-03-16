@@ -23,3 +23,23 @@ foreach($res3 as $re){
 $timestamp_fin = microtime(true);
 $difference_ms = $timestamp_fin - $timestamp_debut;
 print "Exécution de l'instruction en : ' . $difference_ms . ' secondes.\n";
+print "=================================================================================="."/n";
+//Mesurer temps d'exec avec 3 vals diff
+$timestamp_debut = microtime(true);
+$res21 = \bdd\models\Game::where('name', 'like', 'Mario%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 2.1 req 1 en : ' . $difference_ms . ' secondes.\n";
+
+$timestamp_debut = microtime(true);
+$res21 = \bdd\models\Game::where('name', 'like', 'Desert%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 2.1 req 2 en : ' . $difference_ms . ' secondes.\n";
+
+$timestamp_debut = microtime(true);
+$res1 = \bdd\models\Game::where('name', 'like', 'The%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 2.1 req 2 en : ' . $difference_ms . ' secondes.\n";
+print "=================================================================================="."/n";
