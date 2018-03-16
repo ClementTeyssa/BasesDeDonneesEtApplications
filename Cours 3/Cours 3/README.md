@@ -42,7 +42,15 @@ print "Exécution de l'instruction 3 en : ' . $difference_ms . ' secondes.\n";
 ```
 - les jeux dont le nom débute par 'Mario' et dont le rating initial contient '3+'
 ```
-
+$timestamp_debut = microtime(true);
+$req4 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin-$timestamp_debut;
+print "Exécution de l'instruction 4 en : " . $difference_ms . " secondes.\n";
 ```
 
 Cache de requêtes mysql : comparer le temps d'exécution d'une requête coûteuse entre la 1ère

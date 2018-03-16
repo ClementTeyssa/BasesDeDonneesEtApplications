@@ -45,7 +45,9 @@ $req4 = \bdd\models\Game::where("name", "like", "Mario%")
         $q->where("name", "like", "%3+%");
     })
     ->get();
-$timestamp_fin = microtime(false);
-$tps_execution = $timestamp_fin-$timestamp_debut;
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin-$timestamp_debut;
 print "Exécution de l'instruction 4 en : " . $difference_ms . " secondes.\n";
 print "==================================================================================\n";
+
+
