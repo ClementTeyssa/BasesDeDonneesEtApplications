@@ -191,3 +191,10 @@ print "Gain de $diff%\n";
 DB::connection()->table('game', function ($table){
     $table->dropIndex('name');
 });
+
+DB::connection()->enableQueryLog();
+
+$queries = DB::getQueryLog();
+
+//Mettre apres chaque requete pour avoir son log (renvoi log derniere req)
+$last_query = end($queries);
