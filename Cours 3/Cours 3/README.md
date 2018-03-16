@@ -6,9 +6,6 @@ https://openclassrooms.com/courses/administrez-vos-bases-de-donnees-avec-mysql/i
 Compléter vos scripts contenant des requêtes pour mesurer le temps d'exécution des requêtes faites
 avec Eloquent. Mesurez uniquement le temps d'exécution, sans prendre en compte l'affichage.
 Mesurer en particulier les requêtes :
-```
-
-```
 - lister l'ensemble des jeux,
 ```
 
