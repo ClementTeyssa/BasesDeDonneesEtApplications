@@ -9,3 +9,11 @@
 require_once "vendor/autoload.php";
 \bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
 
+$timestamp_debut = microtime(true);
+$req6 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+$timestamp_fin = microtime(false);
+$tps_execution = $timestamp_fin-$timestamp_debut;
