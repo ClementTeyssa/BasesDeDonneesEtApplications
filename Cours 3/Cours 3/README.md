@@ -217,24 +217,52 @@ Etudiez sur le même principe la requête "Liste des compagnies d'un pays(locati
 ```
 
 #Partie 2 : observer l'orm, améiorer les performances avec des chargements liés
+
 Ressources :
-• documentation Laravel, partie "Database / Basic usage"
-• documentation Eloquent, partie "eager loading"
+https://laravel.com/docs/5.0/database
+https://laravel.com/docs/5.6/eloquent-relationships#eager-loading
+
 Activer dans Eloquent le mécanisme de log de requêtes, c'est à dire le mécanisme qui permet de
 garder la trace des requêtes SQL effectivement exécutées.
+
 Programmez une fonction d'affichage du log de requêtes de façon à ce qu'il soit lisible.
-Utiliser ce mécanisme pour analyser les requêtes SQL effectivement exécutées dans les cas suivants
-– préciser notamment le nombre de requête SQL exécutées :
-1. lister les jeux dont le nom contient 'Mario'
-2. afficher le nom des personnages du jeu 12342
-3. afficher les noms des persos apparus pour la 1ère fois dans 1 jeu dont le nom contient
-Mario
-4. afficher le nom des personnages des jeux dont le nom (du jeu) contient 'Mario'
-5. les jeux développés par une compagnie dont le nom contient 'Sony'
+```
+
+```
+Utiliser ce mécanisme pour analyser les requêtes SQL effectivement exécutées dans les cas suivants, préciser notamment le nombre de requête SQL exécutées :
+- lister les jeux dont le nom contient 'Mario'
+```
+
+```
+- afficher le nom des personnages du jeu 12342
+```
+
+```
+- afficher les noms des persos apparus pour la 1ère fois dans 1 jeu dont le nom contient Mario
+```
+
+```
+- afficher le nom des personnages des jeux dont le nom (du jeu) contient 'Mario'
+```
+
+```
+- les jeux développés par une compagnie dont le nom contient 'Sony'
+```
+
+```
 Chargements liés :
 Reprogrammez la requête "afficher le nom des personnages des jeux dont le nom (de jeu) contient
 'Mario'" en utilisant un chargement lié.
+```
+
+```
 Afficher le log de requêtes : combien de requêtes sont exécutées ? quelle est la technique SQL
 utilisée ?
+```
+
+```
 Faites la même comparaison avec la requête : jeux développés par une compagnie dont le nom
 contient 'Sony'
+```
+
+```
