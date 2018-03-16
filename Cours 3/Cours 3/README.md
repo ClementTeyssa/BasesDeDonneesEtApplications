@@ -19,7 +19,13 @@ print "Exécution de l'instruction en : " . $difference_ms . " secondes.\n";
 ```
 - lister les jeux dont le nom contient 'Mario'
 ```
-
+$res2 = \bdd\models\Game::where("name", "like", "%Mario%");
+foreach ($res1 as $re){
+    $tmp = $re->name."\n";
+}
+$timestamp_fin = microtime(true);
+$difference_ms = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 2 en : " . $difference_ms . " secondes.\n";
 ```
 - afficher les personnages des jeux dont le nom débute par 'Mario'
 ```
