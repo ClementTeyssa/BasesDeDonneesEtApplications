@@ -38,3 +38,6 @@ foreach($res3 as $re){
 $timestamp_fin = microtime(true);
 $difference_ms = $timestamp_fin - $timestamp_debut;
 print "Exécution de l'instruction 3 en : ' . $difference_ms . ' secondes.\n";
+print "==================================================================================\n";
+
+
