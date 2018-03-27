@@ -216,7 +216,7 @@ Etudiez sur le même principe la requête "Liste des compagnies d'un pays(locati
 
 ```
 
-#Partie 2 : observer l'orm, améiorer les performances avec des chargements liés
+# Partie 2 : observer l'orm, améiorer les performances avec des chargements liés
 
 Ressources :
 https://laravel.com/docs/5.0/database
