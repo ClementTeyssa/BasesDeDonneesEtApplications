@@ -48,13 +48,35 @@ gérés.
 -- Structure de la table `comment`
 --
 
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE IF NOT EXISTS `comment` (
+CREATE TABLE `comment` (
   `title` varchar(20) DEFAULT NULL,
   `content` text,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `idGame` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;COMMIT;
 
 -- --------------------------------------------------------
 
@@ -62,22 +84,114 @@ CREATE TABLE IF NOT EXISTS `comment` (
 -- Structure de la table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `name` varchar(20) DEFAULT NULL,
   `surname` varchar(20) DEFAULT NULL,
-  `mail` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `address` varchar(50) DEFAULT NULL,
   `phoneNumber` varchar(10) DEFAULT NULL,
-  `birthDate` date DEFAULT NULL,
-  PRIMARY KEY (`mail`)
+  `birthDate` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`email`);
 COMMIT;
 ```
 - Programmer un script php qui crée 2 utilisateurs, 3 commentaires par utilisateurs, tous concernant le
 jeu 12342.
 ```
 
+$u = new \bdd\models\User();
+$u->name = "Johni";
+$u->surname = "John";
+$u->email = "john.johni@gmail.com";
+$u->address = "45 rue Berhu";
+$u->phoneNumber = "0622489563";
+$d = new DateTime();
+$d->setDate(1996,02,16);
+$u->birthDate = $d;
+$u->save();
+
+
+$c1 = new \bdd\models\Comment();
+$c1->title = "Lorem ipsum dolor sit amet. ";
+$c1->content = "Nullam vel nisi eu mauris gravida imperdiet id et mi. Proin euismod placerat nisi
+ ac suscipit. Sed ut turpis molestie, consectetur odio ac, iaculis orci. Praesent lobortis nunc 
+ nec felis commodo, a vulputate orci suscipit. Sed arcu mi, gravida nec erat vitae, molestie porttitor
+  dolor. Pellentesque nec dolor nec eros aliquet sodales. Praesent hendrerit porttitor mauris, a accumsan erat
+   condimentum et. Nullam placerat fringilla lectus, nec rhoncus nulla tempor ullamcorper. Fusce non sollicitudin metus. ";
+$c1->email = "john.johni@gmail.com";
+$c1->idGame = 12342;
+$c1->save();
+
+$c2 = new \bdd\models\Comment();
+$c2->title = "Phasellus purus sapien, elementum et. ";
+$c2->content = "Cras varius velit id ante rhoncus, porttitor malesuada velit sagittis. 
+Praesent ac rhoncus augue. Nullam varius massa ac ex pulvinar, eu iaculis nunc porttitor. 
+Quisque a ante pretium ex consequat lobortis. Curabitur tincidunt risus eleifend dolor convallis, 
+sit amet feugiat sem viverra. Aenean quis tempus quam. 
+Maecenas ex ante, condimentum a lorem ac, vestibulum interdum orci. ";
+$c2->email = "john.johni@gmail.com";
+$c2->idGame = 12342;
+$c2->save();
+
+$c3 = new \bdd\models\Comment();
+$c3->title = "Etiam sagittis aliquet turpis, id. ";
+$c3->content = "Fusce vulputate rutrum mi. Quisque posuere dictum sem vel placerat. 
+In sit amet scelerisque ligula. Curabitur vel purus et nisi iaculis facilisis ac in orci. 
+Aliquam vitae fermentum orci. Quisque vulputate venenatis condimentum. Vestibulum vitae massa nunc. ";
+$c3->email = "john.johni@gmail.com";
+$c3->idGame = 12342;
+$c3->save();
+
+$u = new \bdd\models\User();
+$u->name = "esport";
+$u->surname = "noob";
+$u->email = "noob@esport.nl";
+$u->address = "48541 place Gueric";
+$u->phoneNumber = "0626389123";
+$d = new DateTime();
+$d->setDate(1993,11,22);
+$u->birthDate = $d;
+$u->save();
+
+$c1 = new \bdd\models\Comment();
+$c1->title = "Duis porttitor dapibus semper. Pellentesque. ";
+$c1->content = "Fusce vulputate rutrum mi. Quisque posuere dictum sem vel placerat. 
+In sit amet scelerisque ligula. Curabitur vel purus et nisi iaculis facilisis ac in orci. 
+Aliquam vitae fermentum orci. Quisque vulputate venenatis condimentum. Vestibulum vitae massa nunc. ";
+$c1->email = "noob@esport.nl";
+$c1->idGame = 12342;
+$c1->save();
+
+$c2 = new \bdd\models\Comment();
+$c2->title = "Donec nibh ante, pretium ac. ";
+$c2->content = "Nullam vel nisi eu mauris gravida imperdiet id et mi. Proin euismod placerat nisi
+ ac suscipit. Sed ut turpis molestie, consectetur odio ac, iaculis orci. Praesent lobortis nunc 
+ nec felis commodo, a vulputate orci suscipit. Sed arcu mi, gravida nec erat vitae, molestie porttitor
+  dolor. Pellentesque nec dolor nec eros aliquet sodales. Praesent hendrerit porttitor mauris, a accumsan erat
+   condimentum et. Nullam placerat fringilla lectus, nec rhoncus nulla tempor ullamcorper. Fusce non sollicitudin metus. ";
+$c2->email = "noob@esport.nl";
+$c2->idGame = 12342;
+$c2->save();
+
+$c3 = new \bdd\models\Comment();
+$c3->title = "Morbi tortor orci, convallis a. ";
+$c3->content = "Cras varius velit id ante rhoncus, porttitor malesuada velit sagittis. 
+Praesent ac rhoncus augue. Nullam varius massa ac ex pulvinar, eu iaculis nunc porttitor. 
+Quisque a ante pretium ex consequat lobortis. Curabitur tincidunt risus eleifend dolor convallis, 
+sit amet feugiat sem viverra. Aenean quis tempus quam. 
+Maecenas ex ante, condimentum a lorem ac, vestibulum interdum orci. ";
+$c3->email = "noob@esport.nl";
+$c3->idGame = 12342;
+$c3->save();
 ```
 # Partie 2 : génération automatique de données
 Ressources : https://github.com/fzaninotto/Faker
@@ -87,6 +201,9 @@ les tables concernant les commentaires et les utilisateurs. On souhaite que ces 
 Utiliser pour cela un outil de génération de données en php, nommé Faker.
 Utiliser faker pour générer 25000 utilisateurs et 250 000 commentaires portant sur les jeux de votre
 base. Les associations doivent bien entendu être remplies.
+```
+
+```
 Ecrire les requêtes suivantes :
 - lister les commentaires d'un utilisateur donné, afficher la date du commentaire de façon
 lisible, ordonnés par date décroissante

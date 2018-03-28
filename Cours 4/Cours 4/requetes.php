@@ -8,6 +8,9 @@
 
 require_once "vendor/autoload.php";
 
+\bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
+
+/*
 $u = new \bdd\models\User();
 $u->name = "Johni";
 $u->surname = "John";
@@ -19,6 +22,7 @@ $d->setDate(1996,02,16);
 $u->birthDate = $d;
 $u->save();
 
+
 $c1 = new \bdd\models\Comment();
 $c1->title = "Lorem ipsum dolor sit amet. ";
 $c1->content = "Nullam vel nisi eu mauris gravida imperdiet id et mi. Proin euismod placerat nisi
@@ -27,6 +31,7 @@ $c1->content = "Nullam vel nisi eu mauris gravida imperdiet id et mi. Proin euis
   dolor. Pellentesque nec dolor nec eros aliquet sodales. Praesent hendrerit porttitor mauris, a accumsan erat
    condimentum et. Nullam placerat fringilla lectus, nec rhoncus nulla tempor ullamcorper. Fusce non sollicitudin metus. ";
 $c1->email = "john.johni@gmail.com";
+$c1->idGame = 12342;
 $c1->save();
 
 $c2 = new \bdd\models\Comment();
@@ -36,7 +41,8 @@ Praesent ac rhoncus augue. Nullam varius massa ac ex pulvinar, eu iaculis nunc p
 Quisque a ante pretium ex consequat lobortis. Curabitur tincidunt risus eleifend dolor convallis, 
 sit amet feugiat sem viverra. Aenean quis tempus quam. 
 Maecenas ex ante, condimentum a lorem ac, vestibulum interdum orci. ";
-$c3->email = "john.johni@gmail.com";
+$c2->email = "john.johni@gmail.com";
+$c2->idGame = 12342;
 $c2->save();
 
 $c3 = new \bdd\models\Comment();
@@ -45,8 +51,8 @@ $c3->content = "Fusce vulputate rutrum mi. Quisque posuere dictum sem vel placer
 In sit amet scelerisque ligula. Curabitur vel purus et nisi iaculis facilisis ac in orci. 
 Aliquam vitae fermentum orci. Quisque vulputate venenatis condimentum. Vestibulum vitae massa nunc. ";
 $c3->email = "john.johni@gmail.com";
+$c3->idGame = 12342;
 $c3->save();
-
 
 $u = new \bdd\models\User();
 $u->name = "esport";
@@ -65,6 +71,7 @@ $c1->content = "Fusce vulputate rutrum mi. Quisque posuere dictum sem vel placer
 In sit amet scelerisque ligula. Curabitur vel purus et nisi iaculis facilisis ac in orci. 
 Aliquam vitae fermentum orci. Quisque vulputate venenatis condimentum. Vestibulum vitae massa nunc. ";
 $c1->email = "noob@esport.nl";
+$c1->idGame = 12342;
 $c1->save();
 
 $c2 = new \bdd\models\Comment();
@@ -75,6 +82,7 @@ $c2->content = "Nullam vel nisi eu mauris gravida imperdiet id et mi. Proin euis
   dolor. Pellentesque nec dolor nec eros aliquet sodales. Praesent hendrerit porttitor mauris, a accumsan erat
    condimentum et. Nullam placerat fringilla lectus, nec rhoncus nulla tempor ullamcorper. Fusce non sollicitudin metus. ";
 $c2->email = "noob@esport.nl";
+$c2->idGame = 12342;
 $c2->save();
 
 $c3 = new \bdd\models\Comment();
@@ -85,4 +93,16 @@ Quisque a ante pretium ex consequat lobortis. Curabitur tincidunt risus eleifend
 sit amet feugiat sem viverra. Aenean quis tempus quam. 
 Maecenas ex ante, condimentum a lorem ac, vestibulum interdum orci. ";
 $c3->email = "noob@esport.nl";
+$c3->idGame = 12342;
 $c3->save();
+*/
+$nbCom = 0;
+foreach (range(1, 25000) as $i){
+    $u = new \bdd\models\User();
+
+    $rd = rand(3,12);
+    foreach (range(1, $rd) as $j){
+
+        $nbCom++;
+    }
+}
