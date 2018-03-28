@@ -193,6 +193,50 @@ DB::connection()->table('game', function ($table){
     $table->dropIndex('name');
 });
 
+$timestamp_debut = microtime(true);
+$res9_1 = \bdd\models\Company::where('location_country', 'like', '%USA%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms1 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 9.1 en : " . $difference_ms1 . " secondes.\n";
+
+$timestamp_debut = microtime(true);
+$res9_2 = \bdd\models\Company::where('location_country', 'like', '%UK%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms2 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 9.2 en : " . $difference_ms2 . " secondes.\n";
+
+$timestamp_debut = microtime(true);
+$res9_3 = \bdd\models\Company::where('location_country', 'like', '%USA%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms3 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 9.3 en : " . $difference_ms3 . " secondes.\n";
+
+DB::connection()->table('company', function ($table){
+	$table->index('location_country');
+});
+
+$timestamp_debut = microtime(true);
+$res9_1 = \bdd\models\Company::where('location_country', 'like', '%USA%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms1 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 9.1 en : " . $difference_ms1 . " secondes.\n";
+
+$timestamp_debut = microtime(true);
+$res9_2 = \bdd\models\Company::where('location_country', 'like', '%UK%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms2 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 9.2 en : " . $difference_ms2 . " secondes.\n";
+
+$timestamp_debut = microtime(true);
+$res9_3 = \bdd\models\Company::where('location_country', 'like', '%USA%')->get();
+$timestamp_fin = microtime(true);
+$difference_ms3 = $timestamp_fin - $timestamp_debut;
+print "Exécution de l'instruction 9.3 en : " . $difference_ms3 . " secondes.\n";
+
+DB::connection()->table('location_country', function ($table){
+	$table->dropIndex('location_country');
+});
+	
 DB::connection()->enableQueryLog();
     
     function printEndQuery(){
@@ -202,6 +246,23 @@ DB::connection()->enableQueryLog();
     }
 
 print "==================================================================================\n";
-$res2 = \bdd\models\Game::where("name", "like", "%Mario%");
-printEndQuery()
-
+$res1 = \bdd\models\Game::where("name", "like", "%Mario%")->get();
+printEndQuery();
+print "==================================================================================\n";
+$res2 = \bdd\models\Game::where("id","=","12342")
+	->characters()->get();
+foreach ($res2 as $r2){
+	print $r2["name"]."<br>";
+}
+printEndQuery();
+print "==================================================================================\n";
+$res3 = \bdd\models\Game::firstAppared()->where("name", "like", "%Mario%")->get();
+printEndQuery();
+print "==================================================================================\n";
+$res4 = \bdd\models\Game::where("name", "like", "%Mario%")->characters()->get();
+printEndQuery();
+print "==================================================================================\n";
+$res5 = \bdd\models\Game::whereHas("game_developpers", function($q){
+	$q->where("name","like","%Sony%");
+})->get();
+printEndQuery();
