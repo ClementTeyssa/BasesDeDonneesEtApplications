@@ -240,7 +240,11 @@ DB::connection()->table('location_country', function ($table){
 DB::connection()->enableQueryLog();
     
     function printEndQuery(){
+        echo "</br>Derniere requete :";
         $queries = DB::getQueryLog();
+        foreach ($queries as $q){
+            echo "$q";
+        }
         $last_query = end($queries);
         print($last_query);
     }
