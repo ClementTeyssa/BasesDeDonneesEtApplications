@@ -15,6 +15,7 @@ class User extends \Illuminate\Database\Eloquent\Model
     protected $primaryKey = 'email';
     public $timestamps = false;
 
+
     public function comments(){
         return $this->hasMany('\bdd\models\Comment', 'email');
     }
