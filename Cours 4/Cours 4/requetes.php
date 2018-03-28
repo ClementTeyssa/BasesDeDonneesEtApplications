@@ -105,7 +105,6 @@ foreach (range(1, 25000) as $i){
 
     $rd = rand(3,12);
     foreach (range(1, $rd) as $j){
-
         $nbCom++;
     }
 }
