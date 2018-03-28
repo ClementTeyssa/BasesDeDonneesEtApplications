@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 28 mars 2018 à 13:12
+-- Généré le :  mer. 28 mars 2018 à 13:25
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.1.9
 
@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `title` varchar(20) DEFAULT NULL,
   `content` text,
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
+  `mail` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mail` (`mail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
