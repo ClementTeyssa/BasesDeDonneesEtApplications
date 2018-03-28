@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `name` varchar(20) DEFAULT NULL,
   `surname` varchar(20) DEFAULT NULL,
-  `mail` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `address` varchar(50) DEFAULT NULL,
   `phoneNumber` varchar(10) DEFAULT NULL,
   `birthDate` date DEFAULT NULL,
