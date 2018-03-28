@@ -272,14 +272,14 @@ $res5 = \bdd\models\Game::whereHas("game_developpers", function($q){
 printEndQuery();
 print "==================================================================================\n";
 
-$persos = \bdd\models\Games::where("name","like","%Mario%")->with('game2character')->get();
+$persos = \bdd\models\Games::with('characters')->where("name","like","%Mario%")->get();
 foreach ($persos as $p){
 	echo $p->name;
 }
 $queries = DB::getQueryLog();
 echo $queries;
 
-$comps = \bdd\models\Company::where("name","like","%Sony%")->with('game_developers')->get();
+$comps = \bdd\models\Company::with('developers')->where("name","like","%Sony%")->get();
 foreach ($comps as $c){
 	echo $c->name;
 }
