@@ -11,11 +11,31 @@ et les commentaires. On suppose que les utilisateurs sont identifiés par leur @
 informations suivantes sur chaque utilisateur : nom, prénom, email, adresse détaillée, numéro de tel,
 date de naissance.
 ```
+class User extends \Illuminate\Database\Eloquent\Model
+{
+    protected $table = 'user';
+    protected $primaryKey = 'email';
+    public $timestamps = false;
 
+    public function comments(){
+        return $this->hasMany('\bdd\models\Comment', 'email');
+    }
+
+}
 ```
 - Pour un commentaire : titre, contenu, date de création,
 ```
+class Comment extends \Illuminate\Database\Eloquent\Model
+{
 
+    protected $table = 'comment';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    public function user(){
+        return $this->belongsTo('\bdd\models\User','email');
+    }
+}
 ```
 - Créer les tables correspondantes dans la base de données ; prévoir les colonnes 'created_at' et
 'updated_at', de type DateTime, dans la tables des commentaires. Créer les modèles Eloquent
@@ -31,7 +51,7 @@ jeu 12342.
 ```
 # Partie 2 : génération automatique de données
 Ressources : https://github.com/fzaninotto/Faker
--On souhaite programmer un script qui va générer une quantité importante de données pour remplir
+- On souhaite programmer un script qui va générer une quantité importante de données pour remplir
 les tables concernant les commentaires et les utilisateurs. On souhaite que ces données soient
 "réalistes", c'est à dire qu'elles aient une forme proche de données réelles.
 Utiliser pour cela un outil de génération de données en php, nommé Faker.
