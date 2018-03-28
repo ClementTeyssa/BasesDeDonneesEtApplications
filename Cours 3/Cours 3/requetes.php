@@ -196,7 +196,11 @@ DB::connection()->table('game', function ($table){
 DB::connection()->enableQueryLog();
     
     function printEndQuery(){
+        echo "</br>Derniere requete :";
         $queries = DB::getQueryLog();
+        foreach ($queries as $q){
+            echo "$q";
+        }
         $last_query = end($queries);
         print($last_query);
     }
@@ -205,3 +209,4 @@ print "=========================================================================
 $res2 = \bdd\models\Game::where("name", "like", "%Mario%");
 printEndQuery()
 
+?>
