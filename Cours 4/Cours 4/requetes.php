@@ -9,8 +9,8 @@
 require_once "vendor/autoload.php";
 
 \bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
-//com
-    /*
+
+/*
     $u = new \bdd\models\User();
     $u->name = "Johni";
     $u->surname = "John";
@@ -95,9 +95,10 @@ require_once "vendor/autoload.php";
     $c3->email = "noob@esport.nl";
     $c3->idGame = 12342;
     $c3->save();
-    */
+*/
 
 
+//Question faker
 $nbCom = 0;
 foreach (range(1, 25000) as $i){
     $u = new \bdd\models\User();
