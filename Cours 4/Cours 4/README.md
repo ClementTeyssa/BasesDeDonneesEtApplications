@@ -42,7 +42,37 @@ class Comment extends \Illuminate\Database\Eloquent\Model
 associés. Le modèle associé à la table des commentaires doit indiquer que les timestamps seront
 gérés.
 ```
+-- --------------------------------------------------------
 
+--
+-- Structure de la table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE IF NOT EXISTS `comment` (
+  `title` varchar(20) DEFAULT NULL,
+  `content` text,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `name` varchar(20) DEFAULT NULL,
+  `surname` varchar(20) DEFAULT NULL,
+  `mail` varchar(30) NOT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `phoneNumber` varchar(10) DEFAULT NULL,
+  `birthDate` date DEFAULT NULL,
+  PRIMARY KEY (`mail`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+COMMIT;
 ```
 - Programmer un script php qui crée 2 utilisateurs, 3 commentaires par utilisateurs, tous concernant le
 jeu 12342.

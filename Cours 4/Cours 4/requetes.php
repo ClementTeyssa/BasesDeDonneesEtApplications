@@ -14,7 +14,7 @@ $u->address = "45 rue Berhu";
 $u->phoneNumber = "0622489563";
 $d = new DateTime();
 $d->setDate(1996,02,16);
-$u->birthday = $d;
+$u->birthDate = $d;
 $u->save();
 
 $c1 = new \bdd\models\Comment();
@@ -51,7 +51,7 @@ $u->address = "";
 $u->phoneNumber = "0626389123";
 $d = new DateTime();
 $d->setDate(1993,11,22);
-$u->birthday = $d;
+$u->birthDate = $d;
 $u->save();
 
 $c1 = new \bdd\models\Comment();
