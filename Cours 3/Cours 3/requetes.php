@@ -256,7 +256,7 @@ print "=========================================================================
 $res2 = \bdd\models\Game::where("id","=","12342")
 	->characters()->get();
 foreach ($res2 as $r2){
-	print $r2["name"]."<br>";
+	print $r2->name."<br>";
 }
 printEndQuery();
 print "==================================================================================\n";
@@ -270,3 +270,18 @@ $res5 = \bdd\models\Game::whereHas("game_developpers", function($q){
 	$q->where("name","like","%Sony%");
 })->get();
 printEndQuery();
+print "==================================================================================\n";
+
+$persos = \bdd\models\Games::with('characters')->where("name","like","%Mario%")->get();
+foreach ($persos as $p){
+	echo $p->name;
+}
+$queries = DB::getQueryLog();
+echo $queries;
+
+$comps = \bdd\models\Company::with('developers')->where("name","like","%Sony%")->get();
+foreach ($comps as $c){
+	echo $c->name;
+}
+$queries = DB::getQueryLog();
+echo $queries;
