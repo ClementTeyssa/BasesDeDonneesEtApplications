@@ -18,6 +18,7 @@ class User extends \Illuminate\Database\Eloquent\Model
     public $keyType ='string';
 
 
+
     public function comments(){
         return $this->hasMany('\bdd\models\Comment', 'email');
     }
