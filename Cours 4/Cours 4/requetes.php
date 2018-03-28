@@ -96,13 +96,29 @@ $c3->email = "noob@esport.nl";
 $c3->idGame = 12342;
 $c3->save();
 */
+
+$faker = Faker\Factory::create();
 $nbCom = 0;
-foreach (range(1, 25000) as $i){
+for ($i=0; $i<25000; $i++){
     $u = new \bdd\models\User();
-
+    $u->name = $faker->name;
+    $u->surname = $faker->firstName;
+    $mail = $u->name.".".$u->surname."@".$faker->domainName;
+    $u->email = $mail;
+    $u->address = $faker->address;
+    $u->phoneNumber = $faker->phoneNumber;
+    $d = new DateTime();
+    $d->setDate($faker->year,$faker->month,$faker->dayOfMonth);
+    $u->birthDate = $d;
+    $u->save();
     $rd = rand(3,12);
-    foreach (range(1, $rd) as $j){
-
+    for ($j=0; $j<$rd; $j++){
+        $c1 = new \bdd\models\Comment();
+        $c1->title =  $faker->words(rand(5,10), true);
+        $c1->content = $faker->sentences(rand(2,5), true);
+        $c1->email = $mail;
+        $c1->idGame = rand(1,47948);
+        $c1->save();
         $nbCom++;
     }
 }
