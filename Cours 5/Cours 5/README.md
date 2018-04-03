@@ -9,8 +9,8 @@ En utilisant le mini-framework slim,
 construire une route qui doit avoir la forme suivante :
 http://www.gamepedia.ne t / api/games / i d et qui doit retourner la représentation
 JSON du jeu n° id.
-```
-
+```php
+$app->getInstance();
 ```
 Cette représentation est un objet json :
 {
