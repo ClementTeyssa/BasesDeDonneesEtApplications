@@ -13,7 +13,7 @@ require_once "vendor/autoload.php";
 $app = new \Slim\Slim();
 
 $app->get('/api/games/:no(/)', function ($no){
-    (new bdd\controlers\GamesController())->getGame($no);
+    (new bdd\controlers\GamesControler())->getGame($no);
 })->name("games");
 
 
