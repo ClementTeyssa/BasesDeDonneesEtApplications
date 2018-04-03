@@ -9,4 +9,3 @@
 require_once "vendor/autoload.php";
 
 \bdd\conf\ConnexionBase::initialisation('src/conf/conf.ini');
-
