@@ -16,7 +16,7 @@ class Theme extends \Illuminate\Database\Eloquent\Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public games(){
+    function games(){
     	$this->belongsToMany('game',
     	'game2theme',
     	'theme_id',
