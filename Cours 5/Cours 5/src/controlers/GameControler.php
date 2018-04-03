@@ -5,6 +5,8 @@
  * Date: 28/03/2018
  * Time: 15:01
  */
+namespace bdd\controlers;
+use bdd\models\Game;
 
 require_once "vendor/autoload.php";
 
