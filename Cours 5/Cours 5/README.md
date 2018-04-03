@@ -9,8 +9,34 @@ En utilisant le mini-framework slim,
 construire une route qui doit avoir la forme suivante :
 http://www.gamepedia.ne t / api/games / i d et qui doit retourner la représentation
 JSON du jeu n° id.
-```php
-$app->getInstance();
+```PHP
+$app->get('/api/games/:no(/)', function ($no){
+    (new bdd\controlers\GamesControler())->getGame($no);
+})->name("games");
+```
+```PHP
+class GamesControler
+{
+    public function getGame($id){
+
+        $app = \Slim\Slim::getInstance();
+        $app->response->headers->set('Content-Type', 'application/json');
+
+        try{
+
+            $q = Game::select('id', 'name', 'alias', 'deck', 'description', 'original_release_date')
+                ->where("id",'=',$id)
+                ->firstOrFail();
+
+        }catch (ModelNotFoundException $e){
+
+            $app->response->setStatus(404);
+            echo json_encode(["msg"=>"game $id not found"]);
+            return null;
+        }
+        echo json_encode($q->toArray());
+    }
+}
 ```
 Cette représentation est un objet json :
 {
