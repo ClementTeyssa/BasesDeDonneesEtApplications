@@ -322,6 +322,23 @@ Requête : Faire en sorte que les données soient transmises en json.
 Réponse : en cas de succès , le code de retour http doit être 201. La réponse doit contenir le header
 Location: avec comme valeur l'uri du nouveau commentaire ( /api/comments/id ).
 Le body de la réponse doit contenir une représentation json du nouveau commentaire
+```php
+$app->post('/api/games/:no/comments', function ($no){
+    (new bdd\controlers\GamesControler())->addGameCom($no);
+})->name("gamesCoAdd");
 ```
+```php
+public function addGameCom(){
+        $app = \Slim\Slim::getInstance();
+        $requete = $app->request();
 
+        $json = $requete->getBody();
+        $json = json_decode($json, true);
+
+        $c = new Comment();
+        $c->title = $json['title'];
+        $c->content = $json['content'];
+        $c->email = $json['email'];
+        $c->save();
+    }
 ```

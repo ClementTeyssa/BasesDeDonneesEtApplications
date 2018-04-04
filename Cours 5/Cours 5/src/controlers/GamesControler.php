@@ -108,4 +108,18 @@ class GamesControler
         }
         echo json_encode(["characters"=>$tab]);
     }
+
+    public function addGameCom(){
+        $app = \Slim\Slim::getInstance();
+        $requete = $app->request();
+
+        $json = $requete->getBody();
+        $json = json_decode($json, true);
+
+        $c = new Comment();
+        $c->title = $json['title'];
+        $c->content = $json['content'];
+        $c->email = $json['email'];
+        $c->save();
+    }
 }

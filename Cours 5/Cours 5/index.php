@@ -28,6 +28,8 @@ $app->get('/api/games', function (){
     (new bdd\controlers\GamesControler())->getGames();
 })->name("games");
 
-
+$app->post('/api/games/:no/comments', function ($no){
+    (new bdd\controlers\GamesControler())->addGameCom($no);
+})->name("gamesCoAdd");
 
 $app->run();
