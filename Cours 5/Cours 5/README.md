@@ -76,7 +76,23 @@ was followed by several sequels.",
 }, ...
 ]
 ```
-
+public function getGames(){
+        $app = \Slim\Slim::getInstance();
+        $app->response->headers->set('Content-Type', 'application/json');
+        try{
+            $qs = Game::select('id', 'name', 'alias', 'deck', 'description', 'original_release_date')->get();
+        } catch (ModelNotFoundException $e){
+            $app->response->setStatus(404);
+            echo json_encode(["msg"=>"games not found"]);
+            return null;
+        }
+        echo "{\"games\",:".json_encode($qs)."}";
+    }
+```
+```
+$app->get('/api/games', function (){
+    (new bdd\controlers\GamesControler())->getGames();
+})->name("games")
 ```
 }
 # Partie 3 : pagination
