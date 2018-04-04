@@ -292,8 +292,25 @@ qui retournent la liste des personnages d'un jeu. La liste doit avoir la forme s
 { ... }, ...
 ]
 }
-```
+```php
+public function getGameCar($no){
+        $app = \Slim\Slim::getInstance();
+        $app->response->headers->set('Content-Type', 'application/json');
+        try{
+            $q = Game::where("id","=",$no)->firstOrFail();
+            $cars = $q->characters()->select('id', 'name')->get();
+        }catch (ModelNotFoundException $e){
+            $app->response->setStatus(404);
+            echo json_encode(["msg"=>"game $no not found"]);
+            return null;
+        }
+        $tab = [];
+        foreach ($cars as $car){
 
+            array_push($tab, $car);
+        }
+        echo json_encode(["characters"=>$tab]);
+    }
 ```
 # Partie 8 : ajouter des commentaires
 
