@@ -39,46 +39,31 @@ class GamesControler
         $app = \Slim\Slim::getInstance();
         $app->response->headers->set('Content-Type', 'application/json');
         try{
-            $qs = Game::select('id', 'name', 'alias', 'deck')->get();
-        } catch (ModelNotFoundException $e){
-            $app->response->setStatus(404);
-            echo json_encode(["msg"=>"games not found"]);
-            return null;
-        }
-        /*
-        foreach ($qs as $q){
-            $q->links = "href = ";
-        }
-        */
-
-        echo "{\"games\",:".json_encode($qs)."}";
-    }
-
-    public function getGamePage($no){
-        $app = \Slim\Slim::getInstance();
-        $app->response->headers->set('Content-Type', 'application/json');
-        try{
+            $requete = $app->request();
+            $r = $requete->get("page");
+            if(isset($r)){
+                $i = $r;
+            } else {
+                $i = 1;
+            }
+            if($i<1)
+                $i = 1;
             $res = Game::select('id', 'name', 'alias', 'deck')
-                ->where([["id",">",($no-1)*2],["id","<=", $no*2]])
+                ->where([["id",">",($i-1)*200],["id","<=", $i*200]])
                 ->get();
         } catch (ModelNotFoundException $e){
             $app->response->setStatus(404);
             echo json_encode(["msg"=>"games not found"]);
             return null;
         }
-        $res = json_encode($res);
-        $no1 = $no+1;
-        $no2 = $no-1;
+        $no1 = $i+1;
+        $no2 = $i-1;
         if($no2 <= 0)
             $no2 = 1;
+        $res = json_encode([["games"=>$res], ["links"=>["prev"=>"/api/games?page=$no1", "next"=>"/api/games?page=$no2"]]]);
 
-        echo <<<end
-        {"games",: $res,
-        "links" : {
-            "prev" : { "href" : "/api/games?page=$no1" },
-            "next" : { "href" : "/api/games?page=$no2" }
-        }}
-end;
+
+        echo $res;
     }
 
 }

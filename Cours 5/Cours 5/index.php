@@ -14,11 +14,7 @@ $app = new \Slim\Slim();
 
 $app->get('/api/games/:no', function ($no){
     (new bdd\controlers\GamesControler())->getGame($no);
-})->name("games");
-
-$app->get('/api/games?page=:no', function ($no){
-    (new bdd\controlers\GamesControler())->getGamePage($no);
-})->name("games");
+})->name("gamesNo");
 
 $app->get('/api/games', function (){
     (new bdd\controlers\GamesControler())->getGames();
