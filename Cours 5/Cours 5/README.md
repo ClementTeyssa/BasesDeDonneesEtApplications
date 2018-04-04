@@ -75,7 +75,7 @@ later ported to a variety of platforms. It is best known for its open-ended miss
 was followed by several sequels.",
 }, ...
 ]
-```
+```php
 public function getGames(){
         $app = \Slim\Slim::getInstance();
         $app->response->headers->set('Content-Type', 'application/json');
@@ -110,7 +110,7 @@ lien vers la page précédente et un lien vers la page suivante :
 "prev" : { "href" : "/api/games?page=22" },
 "next" : { "href" : "/api/games?page=24" }
 }
-```
+```php
 public function getGames(){
         $app = \Slim\Slim::getInstance();
         $app->response->headers->set('Content-Type', 'application/json');
@@ -159,8 +159,42 @@ eras. Naval and land battles are planned additions.",
 "self" : { "href" : "/api/games/1"}
 }
 La construction de l'uri du jeu devra utiliser le mécanisme de nommage de route de Slim.
-```
+```php
+public function getGames(){
+        $app = \Slim\Slim::getInstance();
+        $app->response->headers->set('Content-Type', 'application/json');
+        try{
+            $tab = [];
+            $requete = $app->request();
+            $r = $requete->get("page");
+            if(isset($r)){
+                $i = $r;
+            } else {
+                $i = 1;
+            }
+            if($i<1)
+                $i = 1;
+            $res = Game::select('id', 'name', 'alias', 'deck')
+                ->where([["id",">",($i-1)*200],["id","<=", $i*200]])
+                ->get();
+            foreach ($res as $re){
+                $link = $app->urlFor("gamesNo",["no"=>$re->id]);
+                array_push($tab, ["game"=>$re, "links"=>["self"=>$link]]);
+            }
+        } catch (ModelNotFoundException $e){
+            $app->response->setStatus(404);
+            echo json_encode(["msg"=>"games not found"]);
+            return null;
+        }
+        $no1 = $i+1;
+        $no2 = $i-1;
+        if($no2 <= 0)
+            $no2 = 1;
+        $res = json_encode([["games"=>$tab], ["links"=>["prev"=>"/api/games?page=$no1", "next"=>"/api/games?page=$no2"]]]);
 
+
+        echo $res;
+    }
 ```
 # Partie 5 : commentaires sur les jeux
 Implanter la route suivante :

@@ -39,6 +39,7 @@ class GamesControler
         $app = \Slim\Slim::getInstance();
         $app->response->headers->set('Content-Type', 'application/json');
         try{
+            $tab = [];
             $requete = $app->request();
             $r = $requete->get("page");
             if(isset($r)){
@@ -51,6 +52,10 @@ class GamesControler
             $res = Game::select('id', 'name', 'alias', 'deck')
                 ->where([["id",">",($i-1)*200],["id","<=", $i*200]])
                 ->get();
+            foreach ($res as $re){
+                $link = $app->urlFor("gamesNo",["no"=>$re->id]);
+                array_push($tab, ["game"=>$re, "links"=>["self"=>$link]]);
+            }
         } catch (ModelNotFoundException $e){
             $app->response->setStatus(404);
             echo json_encode(["msg"=>"games not found"]);
@@ -60,7 +65,7 @@ class GamesControler
         $no2 = $i-1;
         if($no2 <= 0)
             $no2 = 1;
-        $res = json_encode([["games"=>$res], ["links"=>["prev"=>"/api/games?page=$no1", "next"=>"/api/games?page=$no2"]]]);
+        $res = json_encode([["games"=>$tab], ["links"=>["prev"=>"/api/games?page=$no1", "next"=>"/api/games?page=$no2"]]]);
 
 
         echo $res;
