@@ -9,6 +9,7 @@
 namespace bdd\controlers;
 
 
+use bdd\models\Comment;
 use bdd\models\Game;
 use bdd\models\Genre;
 
@@ -31,9 +32,9 @@ class GamesControler
             echo json_encode(["msg"=>"game $id not found"]);
             return null;
         }
-        echo json_encode($q->toArray());
+        $linkCom = $app->urlFor('gamesCo', ['no'=>$id]);
+        echo json_encode(["game"=>$q, "links"=>["comments"=>$linkCom]]);
     }
-
 
     public function getGames(){
         $app = \Slim\Slim::getInstance();
@@ -71,4 +72,21 @@ class GamesControler
         echo $res;
     }
 
+    public function getGameCom($no){
+        $app = \Slim\Slim::getInstance();
+        $app->response->headers->set('Content-Type', 'application/json');
+        try{
+            $req = Comment::where("idGame", "=", $no)
+                ->select('id', 'title', 'content', 'email', 'created_at')
+                ->get();
+
+        }catch (ModelNotFoundException $e){
+
+            $app->response->setStatus(404);
+            echo json_encode(["msg"=>"game $no not found"]);
+            return null;
+        }
+        $q = ["comments"=>$req];
+        echo json_encode($q);
+    }
 }

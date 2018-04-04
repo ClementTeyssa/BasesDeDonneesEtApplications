@@ -202,8 +202,24 @@ http://www.gamepedia.ne t / api/games / 2 /comment s
 qui retourne la collection de commentaires associés à un jeu.
 Pour chaque commentaire retourné dans la collection, la représentation contient l'id, le titre, le texte,
 la date de création et le nom de l'utilisateur.
-```
+```php
+public function getGameCom($no){
+        $app = \Slim\Slim::getInstance();
+        $app->response->headers->set('Content-Type', 'application/json');
+        try{
+            $req = Comment::where("idGame", "=", $no)
+                ->select('id', 'title', 'content', 'email', 'created_at')
+                ->get();
 
+        }catch (ModelNotFoundException $e){
+
+            $app->response->setStatus(404);
+            echo json_encode(["msg"=>"game $no not found"]);
+            return null;
+        }
+        $q = ["comments"=>$req];
+        echo json_encode($q);
+    }
 ```
 # Partie 6 : retour sur les jeux
 Transformer la représentation d'un jeu retournée par l'uri du type
@@ -231,8 +247,27 @@ Ajouter ensuite, dans la représentation d'un jeu, la liste des plateformes pour
 tableau correspondant à une collection de plateforme, construit sur le même principe que le tableau
 de jeux représentant une collection de jeux. Pour chaque plateforme, on retourne son id, son nom,
 alias et abbréviation, ainsi que l'url vers sa description détaillée.
-```
+```php
+public function getGame($id){
 
+        $app = \Slim\Slim::getInstance();
+        $app->response->headers->set('Content-Type', 'application/json');
+
+        try{
+
+            $q = Game::select('id', 'name', 'alias', 'deck', 'description', 'original_release_date')
+                ->where("id",'=',$id)
+                ->firstOrFail();
+
+        }catch (ModelNotFoundException $e){
+
+            $app->response->setStatus(404);
+            echo json_encode(["msg"=>"game $id not found"]);
+            return null;
+        }
+        $linkCom = $app->urlFor('gamesCo', ['no'=>$id]);
+        echo json_encode(["game"=>$q, "links"=>["comments"=>$linkCom]]);
+    }
 ```
 # Partie 7 : les personnages d'un jeu
 Implanter le traitement des requêtes du type /api/games/id/characters

@@ -19,4 +19,8 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     public function user(){
         return $this->belongsTo('\bdd\models\User','email');
     }
+
+    public function game(){
+        return $this->belongsTo('\bdd\models\Game','idGame');
+    }
 }
