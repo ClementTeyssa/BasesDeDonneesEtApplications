@@ -1,7 +1,7 @@
 # Modèles
 Compléter les modèles Eloquent pour représenter les associations nécessaire à l'écriture des requêtes suivantes, puis écrire les requêtes suivantes avec eloquent :
 - Character
-```
+```php
     public function firstAppared(){
     	return
     		$this->belongsTo('bdd\models\Game','first_appared_in_game_id');
@@ -32,7 +32,7 @@ Compléter les modèles Eloquent pour représenter les associations nécessaire 
     }
 ```
 - Company
-```
+```php
     public function developers(){
     	return 
     	$this->belongsToMany('bdd\models\Game',
@@ -49,7 +49,7 @@ Compléter les modèles Eloquent pour représenter les associations nécessaire 
     }
 ```
 - Game
-```
+```php
          public function game_ratings(){
             return $this->belongsToMany('bdd\models\Game_Rating',
         		'game2rating', 
@@ -107,7 +107,7 @@ Compléter les modèles Eloquent pour représenter les associations nécessaire 
     	}
 ```
 - Game_Rating
-```
+```php
     public function games(){
             return $this->belongsToMany('bdd\models\Game',
                 'game2rating',
@@ -120,7 +120,7 @@ Compléter les modèles Eloquent pour représenter les associations nécessaire 
         }
 ```
 - Genre
-```
+```php
     public function games(){
         	return 
         	$this->belongsToMany('game',
@@ -130,7 +130,7 @@ Compléter les modèles Eloquent pour représenter les associations nécessaire 
         }
 ```
 - Platform
-```
+```php
     public function gamess(){
             return $this->belongsToMany('bdd\models\Game',
                 'game2platform',
@@ -139,13 +139,13 @@ Compléter les modèles Eloquent pour représenter les associations nécessaire 
         }
 ```
 - Rating_Board
-```
+```php
     public function game_ratings(){
         return $this->hasMany('Game_Rating', 'rating_board_id');
     }
 ```
 - Theme
-```
+```php
     public function games(){
         return $this->belongsToMany('bdd\models\Game',
             'theme2rating',
@@ -155,7 +155,7 @@ Compléter les modèles Eloquent pour représenter les associations nécessaire 
 ```
 # Requètes
 - afficher (name , deck) les personnages du jeu 12342
-```
+```php
 $req1 = \bdd\models\Game::where("id","=","12342")->first();
 $characters = $req1->characters;
 foreach($characters as $char) {
@@ -163,7 +163,7 @@ foreach($characters as $char) {
 }
 ```
 - les personnages des jeux dont le nom (du jeu) débute par 'Mario'
-```
+```php
 $res2 = \bdd\models\Game::where('name', 'like', 'Mario%')->get();
 foreach($res2 as $re){
     $pers = $re->characters;
@@ -174,7 +174,7 @@ foreach($res2 as $re){
 }
 ```
 - les jeux développés par une compagnie dont le nom contient 'Sony'
-```
+```php
 $req3 = \bdd\models\Company::where("name","like","%Sony%")->get();
 foreach ($req3 as $re){
     $games = $re->developers;
@@ -185,7 +185,7 @@ foreach ($req3 as $re){
 }
 ```
 - le rating initial (indiquer le rating board) des jeux dont le nom contient Mario
-```
+```php
 $res4 = \bdd\models\Game::where('name', 'like', "%Mario%")->get();
 foreach ($res4 as $re) {
     print "---------" . $re->name . "---------\n";
@@ -196,7 +196,7 @@ foreach ($res4 as $re) {
 }
 ```
 - les jeux dont le nom débute par Mario et ayant plus de 3 personnages
-```
+```php
 $req5 = \bdd\models\Game::where("name","like","Mario%")->get();
 foreach($req5 as $res){
     $characters = $res->characters;
@@ -206,11 +206,18 @@ foreach($req5 as $res){
 }
 ```
 - les jeux dont le nom débute par Mario et dont le rating initial contient "3+"
-```
-
+```php
+$req6 = \bdd\models\Game::where("name", "like", "Mario%")
+    ->whereHas("game_ratings", function ($q){
+        $q->where("name", "like", "%3+%");
+    })
+    ->get();
+foreach ( $req6 as $re){
+    print $re->id." ".$re->name."\n";
+}
 ```
 - les jeux dont le nom débute par Mario, publiés par une compagnie dont le nom contient "Inc." et dont le rating initial contient "3+"
-```
+```php
 $req7 = \bdd\models\Game::where("name", "like", "Mario%")
     ->whereHas("publishers", function ($q){
         $q->where("name", "like", "%Inc%");
@@ -224,7 +231,7 @@ foreach ( $req7 as $re){
 }
 ```
 - les jeux dont le nom débute Mario, publiés par une compagnie dont le nom contient "Inc",dont le rating initial contient "3+" et ayant reçu un avis de la part du rating board nommé"CERO"
-```
+```php
 $req8 = \bdd\models\Game::where("name", "like", "Mario%")
     ->whereHas("publishers", function ($q){
         $q->where("name", "like", "%Inc%");
@@ -239,7 +246,7 @@ foreach ( $req8 as $re){
 }
 ```
 - ajouter un nouveau genre de jeu, et l'associer aux jeux 12, 56, 12, 345
-```
+```php
 $nouvGenre = new \bdd\models\Genre();
 $nouvGenre->name = 'MEUPORG';
 $nouvGenre->deck = 'MMORPG mais en nul';

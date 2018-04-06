@@ -123,3 +123,15 @@ for ($i=0; $i<25000; $i++){
         $nbCom++;
     }
 }
+
+
+
+$commentaires = $u->comments->orderBy("dateCreation")->get();
+foreach ($commentaires as $com) {
+    echo $com->titre."\n" . $com->dateCreation;
+}
+
+
+
+
+

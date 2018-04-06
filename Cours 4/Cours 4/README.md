@@ -10,7 +10,7 @@ génération automatique de données typées et insérées dans la base avec un 
 et les commentaires. On suppose que les utilisateurs sont identifiés par leur @email. On possède les
 informations suivantes sur chaque utilisateur : nom, prénom, email, adresse détaillée, numéro de tel,
 date de naissance.
-```
+```php
 class User extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'user';
@@ -24,7 +24,7 @@ class User extends \Illuminate\Database\Eloquent\Model
 }
 ```
 - Pour un commentaire : titre, contenu, date de création,
-```
+```php
 class Comment extends \Illuminate\Database\Eloquent\Model
 {
 
@@ -41,7 +41,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
 'updated_at', de type DateTime, dans la tables des commentaires. Créer les modèles Eloquent
 associés. Le modèle associé à la table des commentaires doit indiquer que les timestamps seront
 gérés.
-```
+```php
 -- --------------------------------------------------------
 
 --
@@ -126,7 +126,7 @@ COMMIT;
 ```
 - Programmer un script php qui crée 2 utilisateurs, 3 commentaires par utilisateurs, tous concernant le
 jeu 12342.
-```
+```php
 
 $u = new \bdd\models\User();
 $u->name = "Johni";
@@ -221,7 +221,7 @@ les tables concernant les commentaires et les utilisateurs. On souhaite que ces 
 Utiliser pour cela un outil de génération de données en php, nommé Faker.
 Utiliser faker pour générer 25000 utilisateurs et 250 000 commentaires portant sur les jeux de votre
 base. Les associations doivent bien entendu être remplies.
-```
+```php
 
 $faker = Faker\Factory::create();
 $nbCom = 0;
@@ -252,10 +252,13 @@ for ($i=0; $i<25000; $i++){
 Ecrire les requêtes suivantes :
 - lister les commentaires d'un utilisateur donné, afficher la date du commentaire de façon
 lisible, ordonnés par date décroissante
-```
-
+```php
+$commentaires = $u->comments->orderBy("dateCreation")->get();
+foreach ($commentaires as $com) {
+    echo $com->titre."\n" . $com->dateCreation;
+}
 ```
 - lister les utilisateurs ayant posté plus de 5 commentaires
-```
+```php
 
 ```
